@@ -36,7 +36,6 @@ module.exports = function(offset, num_sites, cb){
 
   if (num_sites%25) pages+=1;
 
-  console.log(offset);
   for (var p=offset; p<offset+pages; p++){
     (function(page){
       child = exec('curl '+get_alexa_url(p), function (error, html, stderr){
