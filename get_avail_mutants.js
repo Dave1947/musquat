@@ -7,6 +7,7 @@ function r_is_taken(urls_test, urls_avail, cb){
   }
   var url_to_test = urls_test.shift();
   is_taken(url_to_test, function(e, res){
+    console.log(res, url_to_test);
     if (!e && !res){
       urls_avail.push(url_to_test);
     }

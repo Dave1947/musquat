@@ -32,16 +32,14 @@ function add_rank_map(global, local, page){
 module.exports = function(offset, num_sites, cb){
 
   var global_rank_map = {}
-  , pages = num_sites/25;
+  , pages = num_sites;
 
-  if (num_sites%25) pages+=1;
-
-  for (var p=offset; p<offset+pages; p++){
+  for (var p=offset/1; p<offset/1+pages/1; p++){
     (function(page){
       child = exec('curl '+get_alexa_url(p), function (error, html, stderr){
         var rank_map = r_parse_html(html, 0, page, 0, {});
         global_rank_map = add_rank_map(global_rank_map, rank_map, page);
-        if (Object.keys(global_rank_map).length==num_sites){
+        if (Object.keys(global_rank_map).length==num_sites*25){
           return cb(error, global_rank_map);
         }
       });
