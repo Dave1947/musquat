@@ -4,10 +4,18 @@ function whois(url, cb){
   child = exec('whois '+url, cb);
 }
 
+function get_domainr_info(url, cb){
+  exec('curl domai.nr/api/json/info?q='+url, cb);
+}
+
 module.exports = function(url, cb){
-  whois(url, function(error, stdout, stderr){
-    // if we find 'no match for' then its available
-    // return true if taken false if avail
-    return cb(error, stdout.indexOf('No match for')===-1);
+  get_domainr_info(url, function(e, data){
+    try {
+      data = JSON.parse(data);
+    } catch (e){
+      return cb(e);
+    }
+    // is it taken?
+    return cb(e, data.availability!='available');
   });
 };

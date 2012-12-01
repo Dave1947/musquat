@@ -5,7 +5,6 @@ get_tld = function(url_split){
 }
 
 module.exports = function(url){
-
   var url_split = url.split('.')
   , pre = url_split[0]
   , tld = get_tld(url_split) 
