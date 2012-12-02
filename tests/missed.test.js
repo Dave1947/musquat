@@ -8,6 +8,7 @@ if (!(page && lim)){
   process.exit();
 }
 
+var map = {};
 var scrape_alexa = require('../get_alexa_top_sites.js');
 scrape_alexa(page, lim, function(e, allsites){
   exec('ls '+__dirname+'/../results/', function(e, data){
@@ -16,8 +17,8 @@ scrape_alexa(page, lim, function(e, allsites){
       files[i] = file.split('.json')[0];
     });
     Object.keys(allsites).forEach(function(rank){
-      allsites[rank] = files.indexOf(allsites[rank])>-1 ? 'YES' : 'NO';
+      map[allsites[rank]] = files.indexOf(allsites[rank])>-1 ? true : false;
     });
-    console.log(allsites);
+    console.log(JSON.stringify(map));
   });
 });
